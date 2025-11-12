@@ -1,0 +1,44 @@
+package paylink;
+
+import java.math.BigDecimal;
+
+
+public class User {
+	String name;
+	String email;
+	BigDecimal balance;
+	
+	User(String name, String email, BigDecimal startingBalance){
+		this.name = name;
+		this.email = email;
+		this.balance = startingBalance;
+	}
+	
+	void sendMoney(User receiver, BigDecimal amount, NotificationService ns) {
+		if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+			ns.notifyUser("Amount must be greater than 0.");
+			return;
+		}
+		
+		if (balance.compareTo(amount) < 0) {
+			ns.notifyUser(name + " does not have enough funds.");
+			return;
+		}
+		balance = balance.subtract(amount);
+		receiver.balance = receiver.balance.add(amount);
+		ns.notifyUser("Transaction performed: " + name + " sent $" + amount + " to " + receiver.name);
+	}
+}
+	
+	
+class Transaction {
+	static void perform(User sender, User receiver, BigDecimal amount, NotificationService ns ) {
+		sender.sendMoney(receiver, amount, ns);
+	}
+}
+
+class NotificationService {
+	void notifyUser(String message) {
+		System.out.println("[Notification] " + message);
+	}
+}
