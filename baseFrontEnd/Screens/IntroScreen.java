@@ -17,41 +17,63 @@ public class IntroScreen extends Screen {
     private JTextField nameTextField;
     private JTextField emailTextField;
 
-    @Override
+     @Override
     protected void initialize() {
         setLayout(null);
 
-        nameTextField = new JTextField("insert name here");
+        // Name label and field
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setBounds(200, 125, 200, 25);
+
+        nameTextField = new JTextField();
         nameTextField.setBounds(200, 150, 200, 30);
 
-        emailTextField = new JTextField("insert email here");
-        emailTextField.setBounds(200, 190, 200, 30);
+        // Email label and field (moved down)
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setBounds(200, 190, 200, 25);  // Changed from 165 to 190
 
+        emailTextField = new JTextField();
+        emailTextField.setBounds(200, 215, 200, 30);  // Changed from 190 to 215
+
+        // Submit button (moved down)
         submitButton = new JButton("Submit");
-        submitButton.setBounds(250, 240, 100, 35);
+        submitButton.setBounds(250, 265, 100, 35);  // Changed from 240 to
+    
+        submitButton.addActionListener(e -> Submit());
 
-        submitButton.addActionListener(e -> {
-            String name = nameTextField.getText();
-            String email = emailTextField.getText();
-            JOptionPane.showMessageDialog(this, 
-                "Welcome, " + name + " (" + email + ")!");
-        });
-
+        // Add all components
+        add(nameLabel);
         add(nameTextField);
+        add(emailLabel);
         add(emailTextField);
         add(submitButton);
-        submitButton.addActionListener(e -> Submit());
     }
     
     protected void Submit() {
-    	String nameText = nameTextField.getText();
-    	String emailText = emailTextField.getText();
-    	
-    	if(nameText.length() > 0 && emailText.length() > 0) {
-    		Wrapper.activeUser = new User(nameText, emailText, BigDecimal.valueOf(2000)); // start with 2000 $
-    	}
-    	
-    	switchTo(new AccountScreen());
+        String nameText = nameTextField.getText();
+        String emailText = emailTextField.getText();
+
+        if(nameText.length() > 0 && emailText.length() > 0) {
+            // Check if user already exists (LOGIN)
+            User existingUser = null;
+            for (User u : Wrapper.users) {
+                if (u.email.equalsIgnoreCase(emailText)) {
+                    existingUser = u;
+                    break;
+                }
+            }
+
+            if (existingUser != null) {
+                // User exists - LOGIN
+                Wrapper.activeUser = existingUser;
+            } else {
+                // New user - SIGNUP
+                Wrapper.activeUser = new User(nameText, emailText, BigDecimal.valueOf(2000));
+                Wrapper.users.add(Wrapper.activeUser);
+            }
+        }
+
+        switchTo(new AccountScreen());
     }
 
     @Override
