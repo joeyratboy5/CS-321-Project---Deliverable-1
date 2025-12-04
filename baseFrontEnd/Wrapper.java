@@ -24,12 +24,31 @@ public class Wrapper {
             appFrame.setLayout(new CardLayout());
             appFrame.setVisible(true);
 
-            users = new ArrayList<>();
-            users.add(new User("Dummy", "Dummy@Dummy.com", BigDecimal.valueOf(0)));
+            initializeDummyUsers(); // updated
 
             // start with IntroScreen
             setActiveScreen(new IntroScreen());
         });
+    }
+
+    // updated: helper to set up initial demo users
+    private static void initializeDummyUsers() {
+        users = new ArrayList<>();
+        users.add(new User("Dummy", "Dummy@Dummy.com", BigDecimal.valueOf(0)));
+        users.add(new User("TestUser", "test@paylink.com", BigDecimal.valueOf(100))); // # updated
+    }
+
+    // helper to find a user by email for login or transfers
+    public static User findUserByEmail(String email) {
+        if (users == null) {
+            return null;
+        }
+        for (User u : users) {
+            if (u.getEmail().equalsIgnoreCase(email)) {
+                return u;
+            }
+        }
+        return null;
     }
 
     public static void setActiveScreen(Screen newScreen) {
