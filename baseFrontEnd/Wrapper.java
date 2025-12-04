@@ -44,7 +44,7 @@ public class Wrapper {
             return null;
         }
         for (User u : users) {
-            if (u.getEmail().equalsIgnoreCase(email)) {
+            if (u.email.equalsIgnoreCase(email)) {
                 return u;
             }
         }
@@ -63,3 +63,4 @@ public class Wrapper {
         appFrame.repaint();
     }
 }
+
