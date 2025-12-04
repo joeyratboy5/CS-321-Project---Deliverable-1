@@ -4,10 +4,15 @@ import java.math.BigDecimal;
 
 import baseFrontEnd.Screens.NotificationService;
 
+import java.util.ArrayList;
+
+import java.util.List;
+ 
 public class User {
 	public String name;
 	public String email;
 	public BigDecimal balance;
+	public List<String> transactionHistory = new ArrayList<>();
 	
 	public User(String name, String email, BigDecimal startingBalance){
 		this.name = name;
@@ -26,7 +31,17 @@ public class User {
 			return;
 		}
 		balance = balance.subtract(amount);
+		String record = "Transaction performed: " + name + " sent $" + amount + " to " + receiver.name;
+		
 		receiver.balance = receiver.balance.add(amount);
-		ns.notifyUser("Transaction performed: " + name + " sent $" + amount + " to " + receiver.name);
+		transactionHistory.add(record);
+		ns.notifyUser(record);
 	}
+	void displayTransactionHistory(){
+		System.out.println("-----Transaction History for " + name + "-----");
+		for(String str : transactionHistory){
+			System.out.println(str);
+		}
+	}
+
 }
