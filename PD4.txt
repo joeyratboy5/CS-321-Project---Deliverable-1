@@ -1,0 +1,16 @@
+﻿Change Log:
+        Deliverable 1 Changes - 
+* Everyone designed their own features, and Joey committed them to the Git repo.
+* Everyone designed user stories for Feature 1: Peer-to-Peer transfers(p2p). 
+        Deliverable 2 Changes - 
+* Everyone designed storyboards for Feature 1
+   * These stories encapsulate a need for users to be able to transfer funds between each other, and shows that Paylink can achieve this. 
+        Deliverable 3 Changes - 
+* The team worked together to design and make the MVP front end for the project. The work resulted in a very minimum MVP that displays the ability to log in, and transfer funds, which captures most of the features we chose to implement. 
+Technology Used:
+        The project is implemented in Java using object-oriented design, with clear separation between functionality classes (User, Transaction, NotificationService) and GUI framework classes (Javax Swing based). Our MVP, while lightweight, was built in order to display basic functionality. 
+Contributions and Testing:
+        Distribution:
+The work was distributed a bit lop-sided because Liam was the one who knew the most about how to use swing, and implemented most of the work for the displaying of the MVP. The functionality classes(User, Transaction, and Notification Service) were implemented by Robert and Joey added transaction history tracking functionality later, It can be estimated that Robert takes the cake for this though, as transaction history tracking is minor, but necessary for later implementation. Ashish implemented the login/signup authentication system in IntroScreen with email-based user lookup, fixed the critical bug where new users weren’t persisting to the user list, and improved the UI by adding visible field labels with proper positioning. Sai contributed by helping refine and clean up the frontend screens, improving the layout and clarity of buttons and text fields, fixing smaller UI issues, and assisting with testing and validating the P2P transfer flow to make sure balances updated correctly and error messages displayed properly
+Software Reuse:
+         Much of our code reuse was of the functionality classes, and methods associated with them. The Screen class was used extensively as it is what connects the swing components together in a frame.
